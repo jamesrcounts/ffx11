@@ -1,6 +1,14 @@
 FROM ubuntu:14.04
 
-RUN apt-get update && apt-get install -y firefox
+# Packages:
+# firefox - a web browser
+# xvfb - a 'fake' display https://en.wikipedia.org/wiki/Xvfb
+# x11vnc - VNC server https://en.wikipedia.org/wiki/X11vnc
+RUN apt-get update && \
+    apt-get install -y \
+        firefox \
+        xvfb \
+        x11vnc
 
 # Replace 1000 with your user / group id
 RUN export uid=1000 gid=1000 && \
@@ -12,5 +20,7 @@ RUN export uid=1000 gid=1000 && \
     chown ${uid}:${gid} -R /home/developer
 
 USER developer
+RUN mkdir ~/.vnc
+RUN x11vnc -storepasswd 1234 ~/.vnc/passwd
 ENV HOME /home/developer
-CMD /usr/bin/firefox
+# CMD /usr/bin/firefox

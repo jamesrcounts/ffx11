@@ -4,9 +4,13 @@ set -euo pipefail
 docker pull ubuntu:14.04
 docker build -t firefox .
 
-# Note that the DISPLAY variable is set by X11 when running in a linux desktop
-# Note that the .X11-unix socket from the local linux machine is shared with the docker container
+# Is 5900 the default port for VNC?
+# meaning of HOME?
+# removing DISPLAY because we have xvfb now
 docker run -it --rm \
-    -e DISPLAY=$DISPLAY \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    firefox
+    -p 5900:5900 \
+    firefox \
+    x11vnc \
+    -forever \
+    -usepw \
+    -create \
