@@ -23,4 +23,4 @@ USER developer
 RUN mkdir ~/.vnc
 RUN x11vnc -storepasswd 1234 ~/.vnc/passwd
 ENV HOME /home/developer
-# CMD /usr/bin/firefox
+CMD ["x11vnc", "-forever", "-usepw", "-create"]
