@@ -10,4 +10,5 @@ docker run -it \
     -p 6080:6080 \
     --init \
     --security-opt seccomp=unconfined \
-    firefox 
+    firefox \
+    /bin/bash
